@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Help</string>
+
+    // menu content
+    <string name="add_request">Add a new request</string>
+    <string name="refresh">Refresh from new request condition</string>
+    <string name="home">Back to home</string>
+    <string name="search">search request by ID</string>
+    <string name="search_EditText">Please enter your RequestID</string>
+
+
+    // button content
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="ok">OK</string>
+
+    // warning content
+    <string name="warning">Warning</string>
+    <string name="no_title">You need to enter your title</string>
+    <string name="no_nickname">You need to enter your nickname</string>
+    <string name="no_cellphone">You need to enter your cellphone</string>
+    <string name="no_content">You need to enter your content</string>
+    <string name="no_id">You need to enter your request ID</string>
+    <string name="accepted">Somebody has accepted this request</string>
+
+    //
+    <string name="id">Request ID</string>
+    <string name="your_id">This is your RequestID.\n
+        You can search your request via this ID.\n
+        Please remember it!!</string>
+
+</resources>
