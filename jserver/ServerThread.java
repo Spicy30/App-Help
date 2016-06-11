@@ -25,7 +25,7 @@ public class ServerThread extends Thread {
 		
 		try {
 			fin = new BufferedReader(new FileReader("data"));
-			fout = new PrintWriter(new FileWriter("data");
+			fout = new PrintWriter(new FileWriter("data"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
