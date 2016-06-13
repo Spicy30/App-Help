@@ -1,19 +1,23 @@
 package com.example.simon.help;
 
-import android.app.DownloadManager;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
+import org.json.JSONException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class MainListActivity extends AppCompatActivity {
@@ -22,6 +26,11 @@ public class MainListActivity extends AppCompatActivity {
 
     private ArrayList<String> requestList_title = new ArrayList<String>();
 
+    private static Socket socket;
+
+    private BufferedReader in;
+
+    private PrintWriter out;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +38,13 @@ public class MainListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_list);
 
         getViews();
-        getRequestList();
+        try {
+            getRequestList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         showRequestList();
         processControllers();
     }
@@ -70,8 +85,13 @@ public class MainListActivity extends AppCompatActivity {
     private void refresh() {
 
         requestList_title.clear();
-
-        getRequestList();
+        try {
+            getRequestList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
         showRequestList();
     }
 
@@ -90,23 +110,14 @@ public class MainListActivity extends AppCompatActivity {
         RequestListView = (ListView)findViewById(R.id.request_list);
     }
 
-    private void getRequestList() {
-
-        // TODO : get data from server
-        getDataFromServer();
-
-        //temp
+    private void getRequestList() throws IOException, JSONException {
+        getAllRequestThread ct = new getAllRequestThread("10.0.2.2", 5566, requestList_title);
+        ct.start();
+       //temp
         requestList_title.add("大李水餃 10顆");
         requestList_title.add("茶本味");
         requestList_title.add("吉野烤肉飯 烤肉飯");
     }
-
-    private void getDataFromServer() {
-
-        // TODO
-
-    }
-
     private void showRequestList() {
         //show list view
         int layoutId = android.R.layout.simple_list_item_1;
