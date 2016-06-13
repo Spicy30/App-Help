@@ -34,141 +34,117 @@ public class ServerThread extends Thread {
 
 		while(true) {
 			try {
-
-			try {
 				usermsg = clientin.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			if(usermsg == "1")		/* send back all requests data */
-			{
-				// open for reading json string
-				try {
+				if(usermsg == "1")		/* send back all requests data */
+				{
+					// open for reading json string
 					fin = new BufferedReader(new FileReader("data"));
+					String data = fin.readLine();
+					clientout.println(data);
+					fin.close();				
 				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-			
-				String data = fin.readLine();
-				clientout.println(data);
-				fin.close();				
-			}
-			else if(usermsg == "2")	// establish new request
-			{
-				try {
+				else if(usermsg == "2")	// establish new request
+				{	
+					// read data from file
 					fin = new BufferedReader(new FileReader("data"));
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-				String data = fin.readLine();
-				fin.close();
-				
-				JSONArray requests = new JSONArray(data);
-				String reqstr = clientin.readLine();
-				JSONObject reqjson = new JSONObject(reqstr);
-				requests.put(reqjson);
-				String writeback = requests.toString();
-	
-				try {
+					String data = fin.readLine();
+					fin.close();
+					JSONArray requests = new JSONArray(data);
+
+					// read request from client
+					String reqstr = clientin.readLine();
+					JSONObject reqjson = new JSONObject(reqstr);
+					requests.put(reqjson);
+					String writeback = requests.toString();
+
+					// update the file
 					fout = new PrintWriter(new FileWriter("data"));
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-				fout.println(writeback);
-				fout.flush();
-				fout.close();	
-			}
-			else if(usermsg == "3")	// accept a request ( input: ( nickname + cellphone ) of both side  )
-			{
-				try {
-					fin = new BufferedReader(new FileReader("data"));
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-				String data = fin.readLine();
-				JSONArray requests = new JSONArray(data);
-				String cellphone = clientin.readLine();
-				String nickname = clientin.readLine();
-				String helpcell = clientin.readLine();
-				String helpname = clientin.readLine();
-				
-				JSONObject ob;
-				boolean changed = false;
-				for(int i = 0; i < requests.length(); i++)
-				{
-					ob = (JSONObject)requests.get(i);
-					if((String)(ob.get("nickname")) == nickname && (String)(ob.get("cellphone")) == cellphone)
-					{
-						ob.put("accepted", "T");
-						ob.put("helpcell", helpcell);
-						ob.put("helpname", helpname);
-						requests.put(i, ob);
-						changed = true;
-						break;
-					}
-				}
-				
-				if(changed == true)
-				{
-					try { 
-						fout = new PrintWriter(new FileWriter("data"));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-					String output = requests.toString();
-					fout.println(output);
+					fout.println(writeback);
 					fout.flush();
-					fout.close();
-				}
-				
-			}
-			else if(usermsg == "4") // check acception of a request by ( cell, name )
-			{
-				String cellphone = clientin.readLine();				
-				String nickname = clientin.readLine();
-				
-				try {
+					fout.close();	
+				}	
+				else if(usermsg == "3")	// accept a request ( input: ( nickname + cellphone ) of both side  )
+				{
+					// read from file
 					fin = new BufferedReader(new FileReader("data"));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				String data = fin.readLine();
-				JSONArray requests = new JSONArray(data);
-				fin.close();				
-
-				boolean acp = false;
-				JSONObject ob;
-				String helpname = "";
-				String helpcell = "";
-				for(int i = 0; i < requests.length(); i++)
-				{
-					ob = (JSONObject)requests.get(i);
-					if((String)(ob.get("cellphone")) == cellphone
-				        && (String)(ob.get("nickname")) == nickname 
-					&& (String)(ob.get("accepted")) == "T")
+					String data = fin.readLine();
+					fin.close();
+					JSONArray requests = new JSONArray(data);
+					
+					// read request from client
+					String cellphone = clientin.readLine();
+					String nickname = clientin.readLine();
+					String helpcell = clientin.readLine();
+					String helpname = clientin.readLine();
+					
+					// find match and accept
+					JSONObject ob;
+					boolean changed = false;
+					for(int i = 0; i < requests.length(); i++)
 					{
-						acp = true;
-						helpname = (String)ob.get("helpname");
-						helpcell = (String)ob.get("helpcell");
-						break;
+						ob = (JSONObject)requests.get(i);
+						if((String)(ob.get("nickname")) == nickname && (String)(ob.get("cellphone")) == cellphone)
+						{
+							ob.put("accepted", "T");
+							ob.put("helpcell", helpcell);
+							ob.put("helpname", helpname);
+							requests.put(i, ob);
+							changed = true;
+							break;
+						}
 					}
-				}
 				
-				if(acp == true)
+					if(changed == true)
+					{
+						fout = new PrintWriter(new FileWriter("data"));
+						String output = requests.toString();
+						fout.println(output);
+						fout.flush();
+						fout.close();
+					}
+				
+				}
+				else if(usermsg == "4") // check acception of a request by ( cell, name )
 				{
-					clientout.println("1");
-					clientout.println(helpcell);
-					clientout.println(helpname);
-				}		
-				else
-					clientout.println("2");		// not accepted
-			}
+					// read data from client
+					String cellphone = clientin.readLine();				
+					String nickname = clientin.readLine();
+				
+					// read file 
+					fin = new BufferedReader(new FileReader("data"));
+					String data = fin.readLine();
+					JSONArray requests = new JSONArray(data);
+					fin.close();				
+					
+					// check acception
+					boolean acp = false;
+					JSONObject ob;
+					String helpname = "";
+					String helpcell = "";
+					for(int i = 0; i < requests.length(); i++)
+					{
+						ob = (JSONObject)requests.get(i);
+						if((String)(ob.get("cellphone")) == cellphone
+				        	&& (String)(ob.get("nickname")) == nickname 
+						&& (String)(ob.get("accepted")) == "T")
+						{
+							acp = true;
+							helpname = (String)ob.get("helpname");
+							helpcell = (String)ob.get("helpcell");
+							break;
+						}
+					}
+					
+					// tell the client if the request is accepted
+					if(acp == true)
+					{
+						clientout.println("1");
+						clientout.println(helpcell);
+						clientout.println(helpname);
+					}		
+					else
+						clientout.println("2");		// not accepted
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
