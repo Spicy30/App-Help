@@ -17,31 +17,37 @@ public class ServerThread extends Thread {
 	private ServerThread(){
 	}
 	
-	public ServerThread(BufferedReader in) {
+	public ServerThread(BufferedReader in, PrintWriter out) {
 		clientin = in;
+		clientout = out;
 	}
 
 	@Override
 	public void run() {
 		
-		try {
+		/*try {
 			fin = new BufferedReader(new FileReader("data"));
 			fout = new PrintWriter(new FileWriter("data"));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 
 		while(true) {
 			try {
 				usermsg = clientin.readLine();
+				if(usermsg != null){
+					System.out.println(usermsg);
+				}
 				if(usermsg == "1")		/* send back all requests data */
 				{
+					System.out.println(usermsg);
 					// open for reading json string
 					fin = new BufferedReader(new FileReader("data"));
 					String data = fin.readLine();
 					clientout.println(data);
-					fin.close();				
+					fin.close();
+				
 				}
 				else if(usermsg == "2")	// establish new request
 				{	

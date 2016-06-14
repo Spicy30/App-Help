@@ -111,7 +111,7 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     private void getRequestList() throws IOException, JSONException {
-        getAllRequestThread ct = new getAllRequestThread("10.0.2.2", 5566, requestList_title);
+        getAllRequestThread ct = new getAllRequestThread("10.103.249.218", 3000, requestList_title);
         ct.start();
        //temp
         requestList_title.add("大李水餃 10顆");

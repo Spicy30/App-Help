@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -12,6 +13,7 @@ public class SocketServer {
 		ServerSocket ss = null;
 		Socket socket = null;
 		BufferedReader in;
+		PrintWriter out;
 		Thread std;
 		try {
 			ss = new ServerSocket(3000);
@@ -23,7 +25,8 @@ public class SocketServer {
 		}
 		
 		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		std = new ServerThread(in);
+		out = new PrintWriter(socket.getOutputStream(), true);
+		std = new ServerThread(in, out);
 		std.start();
 		if(std.isAlive())
 			System.out.println("Thread running");
