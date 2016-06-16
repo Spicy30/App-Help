@@ -1,6 +1,8 @@
 package com.example.simon.help;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -83,16 +85,31 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-
+        ArrayList<String> tmp = new ArrayList<>(requestList_title);
         requestList_title.clear();
+        int ret = 0;
         try {
-            getRequestList();
+            ret = getRequestList();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e){
             e.printStackTrace();
         }
-        showRequestList();
+        if(ret == 0) {
+            new AlertDialog.Builder(MainListActivity.this)
+                    .setTitle(R.string.warning)
+                    .setMessage(R.string.no_connection)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .show();
+        }
+        else if(ret == 1){
+            showRequestList();
+        }
     }
 
     private void backToHome() {
@@ -110,13 +127,23 @@ public class MainListActivity extends AppCompatActivity {
         RequestListView = (ListView)findViewById(R.id.request_list);
     }
 
-    private void getRequestList() throws IOException, JSONException {
-        getAllRequestThread ct = new getAllRequestThread("10.103.249.218", 3000, requestList_title);
+    private int getRequestList() throws IOException, JSONException {
+        getAllRequestThread ct = new getAllRequestThread("10.5.1.169", 3000, requestList_title);
         ct.start();
-       //temp
-        requestList_title.add("大李水餃 10顆");
-        requestList_title.add("茶本味");
-        requestList_title.add("吉野烤肉飯 烤肉飯");
+        try {
+            ct.join(300);
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        if(ct.isAlive()) {
+            return 0;
+        }
+        else {
+            requestList_title.add("大李水餃 10顆");
+            requestList_title.add("茶本味");
+            requestList_title.add("吉野烤肉飯 烤肉飯");
+            return 1;
+        }
     }
     private void showRequestList() {
         //show list view

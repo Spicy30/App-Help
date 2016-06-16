@@ -21,6 +21,7 @@
     <string name="no_cellphone">You need to enter your cellphone</string>
     <string name="no_content">You need to enter your content</string>
     <string name="no_id">You need to enter your request ID</string>
+    <string name="no_connection">Connection fail, check your network connection then try again</string>
     <string name="accepted">Somebody has accepted this request</string>
 
     //

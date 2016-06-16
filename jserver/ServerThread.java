@@ -6,25 +6,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ServerThread extends Thread {
-	private String usermsg = "";
+	private String usermsg = null;
 	private BufferedReader clientin;
-	private PrintWriter clientout;
+	private BufferedWriter clientout;
 	private BufferedReader fin;
 	private PrintWriter fout;
 
-	
+
 	@SuppressWarnings("unused")
 	private ServerThread(){
 	}
-	
-	public ServerThread(BufferedReader in, PrintWriter out) {
+
+	public ServerThread(BufferedReader in, BufferedWriter out) {
 		clientin = in;
 		clientout = out;
 	}
 
 	@Override
 	public void run() {
-		
+
 		/*try {
 			fin = new BufferedReader(new FileReader("data"));
 			fout = new PrintWriter(new FileWriter("data"));
@@ -34,23 +34,41 @@ public class ServerThread extends Thread {
 
 
 		while(true) {
+			/*try {
+				Thread.sleep(500);
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}*/
 			try {
 				usermsg = clientin.readLine();
 				if(usermsg != null){
 					System.out.println(usermsg);
 				}
-				if(usermsg == "1")		/* send back all requests data */
-				{
-					System.out.println(usermsg);
-					// open for reading json string
-					fin = new BufferedReader(new FileReader("data"));
-					String data = fin.readLine();
-					clientout.println(data);
-					fin.close();
-				
+				else{
+					continue;
 				}
-				else if(usermsg == "2")	// establish new request
-				{	
+				if(usermsg.equals("1"))		/* send back all requests data */
+				{
+					System.out.println("Now got inside usermsg == 1");
+					// open for reading json string
+					//fin = new BufferedReader(new FileReader("data"));
+					//String data = fin.readLine();
+					JSONArray arr = new JSONArray();
+					JSONObject obj = new JSONObject();
+					obj.put("title", "測試範例");
+					arr.put(obj);
+					obj = new JSONObject();
+					obj.put("title", "範例2");
+					arr.put(obj);
+					clientout.write(arr.toString());
+					clientout.newLine();
+					clientout.flush();
+					//fin.close();
+
+				}
+				else if(usermsg.equals("2"))	// establish new request
+				{
 					// read data from file
 					fin = new BufferedReader(new FileReader("data"));
 					String data = fin.readLine();
@@ -67,22 +85,22 @@ public class ServerThread extends Thread {
 					fout = new PrintWriter(new FileWriter("data"));
 					fout.println(writeback);
 					fout.flush();
-					fout.close();	
-				}	
-				else if(usermsg == "3")	// accept a request ( input: ( nickname + cellphone ) of both side  )
+					fout.close();
+				}
+				else if(usermsg.equals("3"))	// accept a request ( input: ( nickname + cellphone ) of both side  )
 				{
 					// read from file
 					fin = new BufferedReader(new FileReader("data"));
 					String data = fin.readLine();
 					fin.close();
 					JSONArray requests = new JSONArray(data);
-					
+
 					// read request from client
 					String cellphone = clientin.readLine();
 					String nickname = clientin.readLine();
 					String helpcell = clientin.readLine();
 					String helpname = clientin.readLine();
-					
+
 					// find match and accept
 					JSONObject ob;
 					boolean changed = false;
@@ -99,7 +117,7 @@ public class ServerThread extends Thread {
 							break;
 						}
 					}
-				
+
 					if(changed == true)
 					{
 						fout = new PrintWriter(new FileWriter("data"));
@@ -108,20 +126,20 @@ public class ServerThread extends Thread {
 						fout.flush();
 						fout.close();
 					}
-				
+
 				}
-				else if(usermsg == "4") // check acception of a request by ( cell, name )
+				else if(usermsg.equals("4")) // check acception of a request by ( cell, name )
 				{
 					// read data from client
-					String cellphone = clientin.readLine();				
+					String cellphone = clientin.readLine();
 					String nickname = clientin.readLine();
-				
-					// read file 
+
+					// read file
 					fin = new BufferedReader(new FileReader("data"));
 					String data = fin.readLine();
 					JSONArray requests = new JSONArray(data);
-					fin.close();				
-					
+					fin.close();
+
 					// check acception
 					boolean acp = false;
 					JSONObject ob;
@@ -131,7 +149,7 @@ public class ServerThread extends Thread {
 					{
 						ob = (JSONObject)requests.get(i);
 						if((String)(ob.get("cellphone")) == cellphone
-				        	&& (String)(ob.get("nickname")) == nickname 
+				        	&& (String)(ob.get("nickname")) == nickname
 						&& (String)(ob.get("accepted")) == "T")
 						{
 							acp = true;
@@ -140,16 +158,16 @@ public class ServerThread extends Thread {
 							break;
 						}
 					}
-					
+
 					// tell the client if the request is accepted
 					if(acp == true)
 					{
-						clientout.println("1");
-						clientout.println(helpcell);
-						clientout.println(helpname);
-					}		
+						clientout.write("1");
+						clientout.write(helpcell);
+						clientout.write(helpname);
+					}
 					else
-						clientout.println("2");		// not accepted
+						clientout.write("2");		// not accepted
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
