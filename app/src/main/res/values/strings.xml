@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Help</string>
+    <string name="app_name">HelpBuyFood</string>
 
     // menu content
     <string name="add_request">Add a new request</string>
