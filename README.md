@@ -1,11 +1,24 @@
 # How to run
-* before running, check your computer's private IP:
- 1. for Windows users: `ipconfig`
- 2. for Mac/Linux users: `ifconfig`
+## Setting
+  * check your computer's private IP:
+   1. for Windows users: `ipconfig`
+   2. for Mac/Linux users: `ifconfig`
 
- Normally you can find your public/private IP in the connected interface(check your wired or wireless interface).
+  Normally you can find your public/private IP in the connected interface(check your wired or wireless interface).
 
- ---
+  * go to `MainListActivity.java`, modify string declaration
+
+      > ServerIP = "*your_server_ip*"
+
+## Build
+  * go to `jserver` directory, run command `make` to build our java server
+
+## Run
+  * run our server first, go to `jserver` directory and run command `make run` to start the server
+
+  * start app and try using
+
+---
 
 # Help
 
