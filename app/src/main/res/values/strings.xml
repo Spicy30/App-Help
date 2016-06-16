@@ -5,7 +5,7 @@
     <string name="add_request">Add a new request</string>
     <string name="refresh">Refresh from new request condition</string>
     <string name="home">Back to home</string>
-    <string name="search">search request by ID</string>
+    <string name="search">Search request</string>
     <string name="search_EditText">Please enter your RequestID</string>
 
 
@@ -29,5 +29,6 @@
     <string name="your_id">This is your RequestID.\n
         You can search your request via this ID.\n
         Please remember it!!</string>
+
 
 </resources>

@@ -122,6 +122,15 @@ public class NewRequest extends AppCompatActivity {
 
     }
 
+
+
+
+
+
+    // the following no need to do
+
+
+
     private void getIDFromServer() {
 
         // TODO

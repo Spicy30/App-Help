@@ -1,6 +1,7 @@
 package com.example.simon.help;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,10 +32,10 @@ public class Search extends AppCompatActivity {
     String nickname_replier;
     String cellphone_replier;
 
-    // temp
-    String id;
 
-    private EditText IDEditText;
+    String nickname_for_search;
+    String cellphone_for_search;
+
 
 
 
@@ -59,7 +61,7 @@ public class Search extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                search();
+                showDialog(1);
                 return true;
             case R.id.action_home:
                 backToHome();
@@ -69,16 +71,69 @@ public class Search extends AppCompatActivity {
         }
     }
 
+    // dialog
+
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        AlertDialog dialogDetails = null;
+
+        switch (id) {
+            case 1:
+                LayoutInflater inflater = LayoutInflater.from(this);
+                View dialogview = inflater.inflate(R.layout.dialog_search, null);
+                AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(Search.this);
+                dialogbuilder.setTitle(R.string.search);
+                dialogbuilder.setView(dialogview);
+                dialogDetails = dialogbuilder.create();
+                break;
+        }
+        return dialogDetails;
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog) {
+        switch (id) {
+            case 1:
+                final AlertDialog searchDialog = (AlertDialog) dialog;
+                final Button OKButton = (Button) searchDialog.findViewById(R.id.ok);
+                final Button CancelButton = (Button) searchDialog.findViewById(R.id.cancel);
+                final EditText NicknameEditText = (EditText) searchDialog.findViewById(R.id.search_nickname);
+                final EditText CellphoneEditText = (EditText) searchDialog.findViewById(R.id.search_cellphone);
+
+                View.OnClickListener OKListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        nickname_for_search = NicknameEditText.getText().toString();
+                        cellphone_for_search = CellphoneEditText.getText().toString();
+
+                        if(checkIfFilled()) {
+                            searchDialog.dismiss();
+                            search();
+                        }
+                    }
+                };
+                OKButton.setOnClickListener(OKListener);
+
+                View.OnClickListener CancelListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        searchDialog.dismiss();
+                    }
+                };
+                CancelButton.setOnClickListener(CancelListener);
+
+                break;
+        }
+    }
+
+
 
     private void search() {
 
-        getRequestID();
-
-        if(checkIfFilled()){
-            getDataFromServer();
-            showRequest();
-        }
-
+        getDataFromServer();  // via nickname_for_search , cellphone_for_search
+        showRequest();
 
     }
 
@@ -89,19 +144,18 @@ public class Search extends AppCompatActivity {
     }
 
 
-    private void getRequestID(){
-
-        id =IDEditText.getText().toString();
-    }
 
     private boolean checkIfFilled() {
 
-        if(id.matches(""))
-            showAlert(R.string.warning,R.string.no_id);
+        if(nickname_for_search.matches(""))
+            showAlert(R.string.warning,R.string.no_nickname);
+        else if(cellphone_for_search.matches(""))
+            showAlert(R.string.warning,R.string.no_cellphone);
         else
             return true;
         return false;
     }
+
 
     private void showAlert(int titleId, int messageId){
         new AlertDialog.Builder(Search.this)
@@ -125,7 +179,6 @@ public class Search extends AppCompatActivity {
         NicknameReplierTextView = (TextView)findViewById(R.id.nickname_replier);
         CellphoneReplierTextView = (TextView)findViewById(R.id.cellphone_replier);
 
-        IDEditText = (EditText)findViewById(R.id.search_id);
 
     }
 
@@ -148,7 +201,7 @@ public class Search extends AppCompatActivity {
         CellphoneReplierTextView.setText(cellphone_replier);
 
         // temp
-        NicknameReplierTextView.setText("hello");
-        CellphoneReplierTextView.setText(id);
+        NicknameReplierTextView.setText(nickname_for_search);
+        CellphoneReplierTextView.setText(cellphone_for_search);
     }
 }

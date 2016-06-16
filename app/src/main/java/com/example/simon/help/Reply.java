@@ -104,7 +104,7 @@ public class Reply extends AppCompatActivity {
 
     private boolean checkIfNotAccepted() {
 
-        // TODO : check from server (maybe from ID)
+        // TODO : check from server (maybe via all data)
         // if accepted
         //      showAlert(R.string.warning,R.string.accepted);
         //      return false;
@@ -120,6 +120,13 @@ public class Reply extends AppCompatActivity {
         // TODO
 
     }
+
+
+
+
+
+    // the following no need to do
+
 
     private void getIDFromServer() {
 

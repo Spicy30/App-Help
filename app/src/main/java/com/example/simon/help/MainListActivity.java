@@ -34,7 +34,7 @@ public class MainListActivity extends AppCompatActivity {
 
     private PrintWriter out;
 
-    private String ServerIP = "10.5.1.169";
+    private String ServerIP = "10.103.249.218";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
