@@ -34,6 +34,8 @@ public class MainListActivity extends AppCompatActivity {
 
     private PrintWriter out;
 
+    private String ServerIP = "10.5.1.169";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +130,7 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     private int getRequestList() throws IOException, JSONException {
-        getAllRequestThread ct = new getAllRequestThread("10.5.1.169", 3000, requestList_title);
+        getAllRequestThread ct = new getAllRequestThread(ServerIP, 3000, requestList_title);
         ct.start();
         try {
             ct.join(300);
