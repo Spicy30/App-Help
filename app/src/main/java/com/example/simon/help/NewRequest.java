@@ -28,7 +28,7 @@ public class NewRequest extends AppCompatActivity {
     private String nickname;
     private String cellphone;
     private String content;
-    private String ServerIP = "10.103.249.218";
+    private String ServerIP = config.server_ip;
 
 
     @Override
@@ -66,8 +66,6 @@ public class NewRequest extends AppCompatActivity {
                     // TODO: send data to server
                     // send request information
                     sendDataToServer();
-
-
 
                     Intent i = new Intent(NewRequest.this, MainListActivity.class);
                     startActivity(i);
@@ -125,11 +123,7 @@ public class NewRequest extends AppCompatActivity {
     private void sendDataToServer() {
         // TODO
         try {
-            JSONObject reqq = new JSONObject();
-            reqq.put("title", title);
-            reqq.put("nickname", nickname);
-            reqq.put("cellphone", cellphone);
-            reqq.put("body", content);
+            JSONObject reqq = new singleReq(nickname, cellphone, content, title).toJSONObject();
             sendRequestThread std = new sendRequestThread(ServerIP, 3000, reqq);
             std.start();
             std.join(300);

@@ -25,21 +25,8 @@ public class ServerThread extends Thread {
 	@Override
 	public void run() {
 
-		/*try {
-			fin = new BufferedReader(new FileReader("data"));
-			fout = new PrintWriter(new FileWriter("data"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
-
-
 		while(true) {
-			/*try {
-				Thread.sleep(500);
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}*/
+
 			try {
 				usermsg = clientin.readLine();
 				if(usermsg != null){
@@ -104,13 +91,13 @@ public class ServerThread extends Thread {
 					for(int i = 0; i < requests.length(); i++)
 					{
 						ob = (JSONObject)requests.get(i);
-						if((String)(ob.get("nickname")) == nickname && (String)(ob.get("cellphone")) == cellphone)
+						if(ob.get("nickname").equals(nickname) && ob.get("cellphone").equals(cellphone))
 						{
 							ob.put("accepted", "T");
 							ob.put("helpcell", helpcell);
 							ob.put("helpname", helpname);
 							String jsonstr = ob.toString();
-							clientout.write(jsonstr);
+							clientout.write("Successful");
 							clientout.newLine();
 							clientout.flush();
 							requests.put(i, ob);
@@ -119,6 +106,11 @@ public class ServerThread extends Thread {
 						}
 					}
 
+					if(changed == false){
+						clientout.write("Unsuccessful");
+						clientout.newLine();
+						clientout.flush();
+					}
 					if(changed == true)
 					{
 						fout = new BufferedWriter(new FileWriter("data"));
@@ -135,6 +127,8 @@ public class ServerThread extends Thread {
 					String cellphone = clientin.readLine();
 					String nickname = clientin.readLine();
 
+					System.out.println("cellphone: " + cellphone);
+					System.out.println("nickname: " + nickname);
 					// read file
 					fin = new BufferedReader(new FileReader("data"));
 					String data = fin.readLine();
@@ -148,10 +142,10 @@ public class ServerThread extends Thread {
 					for(int i = 0; i < requests.length(); i++)
 					{
 						ob = (JSONObject)requests.get(i);
-						if((String)(ob.get("cellphone")) == cellphone
-				        	&& (String)(ob.get("nickname")) == nickname)
+						if(ob.get("cellphone").equals(cellphone)
+				        	&& ob.get("nickname").equals(nickname))
 						{
-							if((String)(ob.get("accepted")) == "T")
+							if(ob.get("accepted").equals("T"))
 								acp = true;
 							find = true;
 							break;
@@ -161,20 +155,20 @@ public class ServerThread extends Thread {
 					// tell the client if the request is accepted
 					if(find == false)
 						ob = new JSONObject();
-					
+
 					if(acp == true)
 					{
-						System.out.println("Acp");
+						System.out.println("Accepted");
 						clientout.write("1\n");
 					}
 					else
-					{							
-						System.out.println("NOT Acp");
+					{
+						System.out.println("NOT Accepted");
 						clientout.write("2\n");
 					}
-					
 
 					clientout.write(ob.toString());
+					clientout.newLine();
 					clientout.flush();
 				}
 			} catch (IOException e) {

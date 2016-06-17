@@ -9,24 +9,22 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Iterator;
 
-/**
- * Created by Simon on 2016/6/17.
- */
-public class acceptThread extends  Thread {
+public class acceptRequestThread extends  Thread {
     private int port;
     private String ip;
     private String req_name;
+    private String reply_name;
     private String req_cell;
-    private JSONObject obj;
+    private String reply_cell;
 
-
-    public acceptThread(String ipp, int portt, String nick, String cell, JSONObject objj)
+    public acceptRequestThread(String ipp, int portt, String nick, String cell, String nick_reply, String cell_reply)
     {
         ip = ipp;
         port = portt;
         req_name = nick;
         req_cell = cell;
-        obj = objj;
+        reply_name = nick_reply;
+        reply_cell = cell_reply;
     }
 
     public void run()
@@ -36,33 +34,23 @@ public class acceptThread extends  Thread {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-            out.write("4\n");
+            out.write("3\n");
             out.write(req_cell);
             out.newLine();
             out.write(req_name);
             out.newLine();
+            out.write(reply_cell);
+            out.newLine();
+            out.write(reply_name);
+            out.newLine();
             out.flush();
 
-            String climsg = in.readLine();
-            String jsonstr = in.readLine();
-
-            JSONObject objtmp = new JSONObject(jsonstr);
-
-            if (climsg.equals("1")) // accepted
-            {
-                for(Iterator it = objtmp.keys(); it.hasNext();){
-                    String key = (String)it.next();
-                    obj.put(key, objtmp.get(key));
-                }
-                obj.put("tf", "T");
+            String retCode = in.readLine();
+            if(retCode.equals("Successful")){
+                System.out.println("successfully accepted");
             }
-            else if (climsg.equals("2")) // not accepted
-            {
-                for(Iterator it = objtmp.keys(); it.hasNext();){
-                    String key = (String)it.next();
-                    obj.put(key, objtmp.get(key));
-                }
-                obj.put("tf", "F");
+            else if(retCode.equals("Unsuccessful")){
+                System.out.println("accept unsuccessfully");
             }
         } catch (Exception e) {
             e.printStackTrace();

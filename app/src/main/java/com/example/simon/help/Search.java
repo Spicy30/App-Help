@@ -39,10 +39,8 @@ public class Search extends AppCompatActivity {
     private String cellphone_for_search;
 
     private static final int DIALOG_SEARCH=1;
-    private JSONObject obj;
-    private String ServerIP = "10.103.249.218";
-
-
+    private JSONObject obj = new JSONObject();
+    private String ServerIP = config.server_ip;
 
 
     @Override

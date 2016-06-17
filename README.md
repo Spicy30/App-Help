@@ -6,9 +6,9 @@
 
   Normally you can find your public/private IP in the connected interface(check your wired or wireless interface).
 
-  * go to `MainListActivity.java`, modify string declaration
+  * go to `config.java`, modify string declaration
 
-      > ServerIP = "*your_server_ip*"
+      > public static final String server_ip = "*your_server_ip*"
 
 ## Build
   * go to `jserver` directory, run command `make` to build our java server

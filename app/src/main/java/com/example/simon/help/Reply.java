@@ -20,6 +20,8 @@ public class Reply extends AppCompatActivity {
     private String nickname;
     private String cellphone;
 
+    private String ServerIP = config.server_ip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +114,7 @@ public class Reply extends AppCompatActivity {
         //      return true;
 
         // temp
+
         return true;
     }
 
