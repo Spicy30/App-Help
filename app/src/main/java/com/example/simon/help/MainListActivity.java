@@ -1,6 +1,5 @@
 package com.example.simon.help;
 
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,7 +35,7 @@ public class MainListActivity extends AppCompatActivity {
 
     private PrintWriter out;
 
-    private String ServerIP = "10.103.249.218";
+    private String ServerIP = config.server_ip;
 
     private String title;
     private String nickname;
@@ -126,11 +125,6 @@ public class MainListActivity extends AppCompatActivity {
         Intent i = new Intent(MainListActivity.this,HomeActivity.class);
         startActivity(i);
     }
-
-
-
-
-
 
     private void getViews() {
         RequestListView = (ListView)findViewById(R.id.request_list);

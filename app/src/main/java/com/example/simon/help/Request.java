@@ -32,6 +32,10 @@ public class Request extends AppCompatActivity {
     private String nickname_replier;
     private String cellphone_replier;
 
+    private JSONObject obj = new JSONObject();
+
+    private String ServerIP = config.server_ip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +98,6 @@ public class Request extends AppCompatActivity {
                         // send replier information
                         sendDataToServer();
 
-
                         Intent i = new Intent(Request.this, MainListActivity.class);
                         startActivity(i);
                     }
@@ -142,7 +145,31 @@ public class Request extends AppCompatActivity {
         //      return true;
 
         // temp
-        return true;
+
+        try {
+            acceptThread atd = new acceptThread(ServerIP, 3000, nickname_replier, cellphone_replier, obj);
+            atd.start();
+            atd.join();
+
+            String climsg = (String) obj.get("tf");
+            System.out.println("CLIMSG: " + climsg);
+
+            if(climsg.equals("T"))
+            {
+                showAlert(R.string.warning,R.string.accepted);
+                return false;
+            }
+            else
+            {
+                // not accepted
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        showAlert(R.string.warning,R.string.something_wrong);
+        return false;
     }
 
     private void showAlert(int titleId, int messageId){
@@ -160,6 +187,14 @@ public class Request extends AppCompatActivity {
     private void sendDataToServer() {
 
         // TODO
+        try {
+            acceptRequestThread artd = new acceptRequestThread(ServerIP, 3000, nickname_requester, cellphone_requester, nickname_replier, cellphone_replier);
+            artd.start();
+            artd.join();
 
+            showAlert(R.string.notice, R.string.successful);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -23,6 +23,7 @@
     <string name="no_id">You need to enter your request ID</string>
     <string name="no_connection">Connection fail, check your network connection then try again</string>
     <string name="accepted">Somebody has accepted this request</string>
+    <string name="something_wrong">Oops, something went wrong</string>
 
     //
     <string name="id">Request ID</string>
@@ -30,5 +31,8 @@
         You can search your request via this ID.\n
         Please remember it!!</string>
 
+    // dialog
+    <string name="notice">Notice</string>
+    <string name="successful">Successful</string>
 
 </resources>
