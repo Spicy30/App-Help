@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,23 +8,49 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:gravity="center"
+    android:gravity="bottom|center"
     tools:context="com.example.simon.help.HomeActivity">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="fill_parent"
+        android:layout_height="180dp" />
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/viewGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="180dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp">
+
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="132dp"
         android:orientation="vertical"
-        android:gravity="center">
-
+        android:gravity="bottom|center_horizontal"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginBottom="00dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/welcome"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="10dp"
             android:textSize="35sp"
             android:text="Welcome to our Apps"/>
 
@@ -32,39 +59,75 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/explanation"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="0dp"
             android:textSize="20sp"
             android:text="You can add a request and \n find someone to help you!!"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/see_request"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:textSize="30sp"
-            android:text="See all requests"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add_request"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:textSize="30sp"
-            android:text="Add a request"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/search_request"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:textSize="30sp"
-            android:text="Search requests"/>
-
     </LinearLayout>
 
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/search_request"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="0dp"
+        android:textSize="30sp"
+        android:src="@drawable/search"
+        android:text="Search requests"
+        android:layout_gravity="bottom|center_horizontal|right" />
 
-</LinearLayout>
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/see_request"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="0dp"
+        android:textSize="30sp"
+        android:src="@drawable/all"
+        android:text="See all requests"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="left|bottom" />
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/add_request"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="0dp"
+        android:textSize="30sp"
+        android:src="@drawable/add"
+        android:text="Add a request"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="all requests"
+        android:id="@+id/textView"
+        android:layout_gravity="left|bottom"
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="add requests"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textSize="17dp"
+        android:typeface="normal"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="search requests"
+        android:id="@+id/textView3"
+        android:layout_gravity="right|bottom"
+        android:textSize="15dp" />
+
+
+</FrameLayout>
