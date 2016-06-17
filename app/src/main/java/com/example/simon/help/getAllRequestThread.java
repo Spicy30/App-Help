@@ -21,21 +21,21 @@ public class getAllRequestThread extends Thread{
     private String ip;
     private Socket socket;
     private ArrayList<String> requestList_title = new ArrayList<String>();
+    private ArrayList<singleReq> requestList = new ArrayList<singleReq>();
 
-    public getAllRequestThread(String ipp, int portt, ArrayList<String> req)
+    public getAllRequestThread(String ipp, int portt, ArrayList<String> reqt, ArrayList<singleReq> list)
     {
         ip = ipp;
         port = portt;
-        requestList_title = req;
+        requestList_title = reqt;
+        requestList = list;
+
     }
 
     public void run()
     {
         try {
-            Log.i("Chat", "yoyoyo");
             Socket socket = new Socket(ip, port); // doesn't work QAQ
-            Log.i("Chat", "yoyoyo");
-            if (socket.isConnected()) Log.i("Chat", "DAMN");
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
@@ -49,9 +49,17 @@ public class getAllRequestThread extends Thread{
                 JSONArray arr = new JSONArray(jsonstr);
 
                 JSONObject ob;
+
                 for (int i = 0; i < arr.length(); i++) {
                     ob = (JSONObject) arr.get(i);
+                    singleReq rq = new singleReq((String)ob.get("nickname")
+                                                ,(String)ob.get("cellphone")
+                                                ,(String)ob.get("body")
+                                                ,(String)ob.get("title"));
+
+                    requestList.add(rq);
                     requestList_title.add((String) ob.get("title"));
+
                 }
             }
             //in.close();

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 public class Request extends AppCompatActivity {
 
     private Button AcceptButton;
@@ -29,8 +31,6 @@ public class Request extends AppCompatActivity {
     private String content;
     private String nickname_replier;
     private String cellphone_replier;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,20 +83,23 @@ public class Request extends AppCompatActivity {
         View.OnClickListener AcceptListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    getEditText();
 
-                getEditText();
+                    // checkIfFilled() : to showAlert if no information or accepted
+                    if (checkIfNotAccepted() && checkIfFilled()) {
 
-                // checkIfFilled() : to showAlert if no information or accepted
-                if (checkIfNotAccepted() && checkIfFilled() ) {
+                        // TODO: send data to server
+                        // tell this request was accepted (by ID?)
+                        // send replier information
+                        sendDataToServer();
 
-                    // TODO: send data to server
-                    // tell this request was accepted (by ID?)
-                    // send replier information
-                    sendDataToServer();
 
-                    Intent i = new Intent(Request.this, MainListActivity.class);
-                    startActivity(i);
-
+                        Intent i = new Intent(Request.this, MainListActivity.class);
+                        startActivity(i);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         };

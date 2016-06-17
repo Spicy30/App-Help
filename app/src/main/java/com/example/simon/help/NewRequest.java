@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 public class NewRequest extends AppCompatActivity {
 
     private Button OKButton;
@@ -23,6 +28,7 @@ public class NewRequest extends AppCompatActivity {
     private String nickname;
     private String cellphone;
     private String content;
+    private String ServerIP = "10.103.249.218";
 
 
     @Override
@@ -117,8 +123,20 @@ public class NewRequest extends AppCompatActivity {
     }
 
     private void sendDataToServer() {
-
         // TODO
+        try {
+            JSONObject reqq = new JSONObject();
+            reqq.put("title", title);
+            reqq.put("nickname", nickname);
+            reqq.put("cellphone", cellphone);
+            reqq.put("body", content);
+            sendRequestThread std = new sendRequestThread(ServerIP, 3000, reqq);
+            std.start();
+            std.join(300);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

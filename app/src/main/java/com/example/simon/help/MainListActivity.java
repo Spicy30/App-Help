@@ -28,6 +28,8 @@ public class MainListActivity extends AppCompatActivity {
 
     private ArrayList<String> requestList_title = new ArrayList<String>();
 
+    private ArrayList<singleReq> requestList = new ArrayList<singleReq>();
+
     private static Socket socket;
 
     private BufferedReader in;
@@ -92,8 +94,8 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-        ArrayList<String> tmp = new ArrayList<>(requestList_title);
         requestList_title.clear();
+        requestList.clear();
         int ret = 0;
         try {
             ret = getRequestList();
@@ -135,22 +137,14 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     private int getRequestList() throws IOException, JSONException {
-        getAllRequestThread ct = new getAllRequestThread(ServerIP, 3000, requestList_title);
+        getAllRequestThread ct = new getAllRequestThread(ServerIP, 3000, requestList_title, requestList);
         ct.start();
         try {
             ct.join(300);
-        } catch(InterruptedException e){
+        } catch(InterruptedException e) {
             e.printStackTrace();
         }
-        if(ct.isAlive()) {
-            return 0;
-        }
-        else {
-            requestList_title.add("大李水餃 10顆");
-            requestList_title.add("茶本味");
-            requestList_title.add("吉野烤肉飯 烤肉飯");
-            return 1;
-        }
+        return 1;
     }
     private void showRequestList() {
         //show list view
@@ -175,11 +169,10 @@ public class MainListActivity extends AppCompatActivity {
                 // TODO : get request from list
 
                 // temp
-                title = "幫買飲料 茶本味";
-                nickname = "Kochun";
-                cellphone = "0910192689";
-                content = "翠玉凍檸*1\n" +
-                        "小芋圓奶茶*1";
+                title = requestList.get(position).title;
+                nickname = requestList.get(position).nickname;
+                cellphone = requestList.get(position).cellphone;
+                content = requestList.get(position).body;
 
 
                 Bundle extras_request = new Bundle();

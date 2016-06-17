@@ -10,7 +10,7 @@ public class ServerThread extends Thread {
 	private BufferedReader clientin;
 	private BufferedWriter clientout;
 	private BufferedReader fin;
-	private PrintWriter fout;
+	private BufferedWriter fout;
 
 
 	@SuppressWarnings("unused")
@@ -52,29 +52,26 @@ public class ServerThread extends Thread {
 				{
 					System.out.println("Now got inside usermsg == 1");
 					// open for reading json string
-					//fin = new BufferedReader(new FileReader("data"));
-					//String data = fin.readLine();
-					JSONArray arr = new JSONArray();
-					JSONObject obj = new JSONObject();
-					obj.put("title", "測試範例");
-					arr.put(obj);
-					obj = new JSONObject();
-					obj.put("title", "範例2");
-					arr.put(obj);
-					clientout.write(arr.toString());
+					fin = new BufferedReader(new FileReader("data"));
+					String data = fin.readLine();
+					clientout.write(data);
 					clientout.newLine();
 					clientout.flush();
-					//fin.close();
+					fin.close();
 
 				}
 				else if(usermsg.equals("2"))	// establish new request
 				{
+					System.out.println("Now usermsg == 2");
+					JSONArray requests;
 					// read data from file
 					fin = new BufferedReader(new FileReader("data"));
 					String data = fin.readLine();
 					fin.close();
-					JSONArray requests = new JSONArray(data);
-
+					if(data != null)
+						requests = new JSONArray(data);
+					else
+						requests = new JSONArray();
 					// read request from client
 					String reqstr = clientin.readLine();
 					JSONObject reqjson = new JSONObject(reqstr);
@@ -82,8 +79,8 @@ public class ServerThread extends Thread {
 					String writeback = requests.toString();
 
 					// update the file
-					fout = new PrintWriter(new FileWriter("data"));
-					fout.println(writeback);
+					fout = new BufferedWriter(new FileWriter("data"));
+					fout.write(writeback);
 					fout.flush();
 					fout.close();
 				}
@@ -112,6 +109,10 @@ public class ServerThread extends Thread {
 							ob.put("accepted", "T");
 							ob.put("helpcell", helpcell);
 							ob.put("helpname", helpname);
+							String jsonstr = ob.toString();
+							clientout.write(jsonstr);
+							clientout.newLine();
+							clientout.flush();
 							requests.put(i, ob);
 							changed = true;
 							break;
@@ -120,9 +121,9 @@ public class ServerThread extends Thread {
 
 					if(changed == true)
 					{
-						fout = new PrintWriter(new FileWriter("data"));
+						fout = new BufferedWriter(new FileWriter("data"));
 						String output = requests.toString();
-						fout.println(output);
+						fout.write(output);
 						fout.flush();
 						fout.close();
 					}
@@ -142,32 +143,39 @@ public class ServerThread extends Thread {
 
 					// check acception
 					boolean acp = false;
-					JSONObject ob;
-					String helpname = "";
-					String helpcell = "";
+					boolean find = false;
+					JSONObject ob = new JSONObject();
 					for(int i = 0; i < requests.length(); i++)
 					{
 						ob = (JSONObject)requests.get(i);
 						if((String)(ob.get("cellphone")) == cellphone
-				        	&& (String)(ob.get("nickname")) == nickname
-						&& (String)(ob.get("accepted")) == "T")
+				        	&& (String)(ob.get("nickname")) == nickname)
 						{
-							acp = true;
-							helpname = (String)ob.get("helpname");
-							helpcell = (String)ob.get("helpcell");
+							if((String)(ob.get("accepted")) == "T")
+								acp = true;
+							find = true;
 							break;
 						}
 					}
 
 					// tell the client if the request is accepted
+					if(find == false)
+						ob = new JSONObject();
+					
 					if(acp == true)
 					{
-						clientout.write("1");
-						clientout.write(helpcell);
-						clientout.write(helpname);
+						System.out.println("Acp");
+						clientout.write("1\n");
 					}
 					else
-						clientout.write("2");		// not accepted
+					{							
+						System.out.println("NOT Acp");
+						clientout.write("2\n");
+					}
+					
+
+					clientout.write(ob.toString());
+					clientout.flush();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 public class Search extends AppCompatActivity {
 
     private TextView TitleTextView;
@@ -37,6 +39,8 @@ public class Search extends AppCompatActivity {
     private String cellphone_for_search;
 
     private static final int DIALOG_SEARCH=1;
+    private JSONObject obj;
+    private String ServerIP = "10.103.249.218";
 
 
 
@@ -188,7 +192,36 @@ public class Search extends AppCompatActivity {
     private void getDataFromServer() {
 
         // TODO
+        try {
+            acceptThread atd = new acceptThread(ServerIP, 3000, nickname_for_search, cellphone_for_search, obj);
+            atd.start();
+            atd.join();
 
+            String climsg = (String) obj.get("tf");
+            System.out.println("CLIMSG: " + climsg);
+
+            if(climsg.equals("T"))
+            {
+                title = (String)obj.get("title");
+                nickname_requester = (String)obj.get("nickname");
+                cellphone_requester = (String)obj.get("cellphone");
+                content = (String)obj.get("body");
+                nickname_replier = (String)obj.get("helpname");
+                cellphone_replier = (String)obj.get("helpcell");
+            }
+            else
+            {
+                // not accepted
+                title = (String)obj.get("title");
+                nickname_requester = (String)obj.get("nickname");
+                cellphone_requester = (String)obj.get("cellphone");
+                content = (String)obj.get("body");
+                nickname_replier = "None";
+                cellphone_replier = "None";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void showRequest() {
@@ -202,8 +235,5 @@ public class Search extends AppCompatActivity {
         NicknameReplierTextView.setText(nickname_replier);
         CellphoneReplierTextView.setText(cellphone_replier);
 
-        // temp
-        NicknameReplierTextView.setText(nickname_for_search);
-        CellphoneReplierTextView.setText(cellphone_for_search);
     }
 }
