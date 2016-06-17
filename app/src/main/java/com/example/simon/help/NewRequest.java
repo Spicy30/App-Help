@@ -19,10 +19,10 @@ public class NewRequest extends AppCompatActivity {
     private EditText cellphoneEditText;
     private EditText contentEditText;
 
-    String title;
-    String nickname;
-    String cellphone;
-    String content;
+    private String title;
+    private String nickname;
+    private String cellphone;
+    private String content;
 
 
     @Override
@@ -61,10 +61,10 @@ public class NewRequest extends AppCompatActivity {
                     // send request information
                     sendDataToServer();
 
-                    // TODO: get requestID from server
-                    getIDFromServer();
 
 
+                    Intent i = new Intent(NewRequest.this, MainListActivity.class);
+                    startActivity(i);
                 }
 
 
@@ -124,38 +124,4 @@ public class NewRequest extends AppCompatActivity {
 
 
 
-
-
-
-    // the following no need to do
-
-
-
-    private void getIDFromServer() {
-
-        // TODO
-
-        // temp
-        int id = 12345;
-
-
-
-
-        showRequestID(id, R.string.your_id);
-    }
-
-    private void showRequestID(int RequestID, int messageId){
-        new AlertDialog.Builder(NewRequest.this)
-                .setTitle(String.valueOf(RequestID))
-                .setMessage(messageId)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Intent i = new Intent(NewRequest.this, MainListActivity.class);
-                        startActivity(i);
-                    }
-                })
-                .show();
-    }
 }

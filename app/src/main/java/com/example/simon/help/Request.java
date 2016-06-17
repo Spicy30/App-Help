@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class Request extends AppCompatActivity {
@@ -19,10 +20,17 @@ public class Request extends AppCompatActivity {
     private TextView CellphoneTextView;
     private TextView ContentTextView;
 
-    String title;
-    String nickname;
-    String cellphone;
-    String content;
+    private EditText nicknameEditText;
+    private EditText cellphoneEditText;
+
+    private String title;
+    private String nickname_requester;
+    private String cellphone_requester;
+    private String content;
+    private String nickname_replier;
+    private String cellphone_replier;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,7 @@ public class Request extends AppCompatActivity {
 
         getViews();
         getRequest();
+        showRequest();
         processControllers();
     }
 
@@ -39,40 +48,34 @@ public class Request extends AppCompatActivity {
         BackButton = (Button)findViewById(R.id.back);
 
         TitleTextView = (TextView)findViewById(R.id.title_content);
-        NicknameTextView = (TextView)findViewById(R.id.nickname_content);
-        CellphoneTextView = (TextView)findViewById(R.id.cellphone_content);
+        NicknameTextView = (TextView)findViewById(R.id.nickname_requester);
+        CellphoneTextView = (TextView)findViewById(R.id.cellphone_requester);
         ContentTextView = (TextView)findViewById(R.id.content_content);
+
+        nicknameEditText = (EditText)findViewById(R.id.nickname_replier);
+        cellphoneEditText = (EditText)findViewById(R.id.cellphone_replier);
     }
 
     private void getRequest() {
 
-        // TODO get data from server via ID from extras
+        Intent data = getIntent();
+        Bundle extras_request = data.getExtras();
 
-        // get ID
-        // Intent intent = getIntent();
-        // Bundle extras = intent.getExtras();
+        title = extras_request.getString("Title");
+        nickname_requester = extras_request.getString("Nickname");
+        cellphone_requester = extras_request.getString("Cellphone");
+        content = extras_request.getString("Content");
 
-        // get data via ID
-        getDataFromServer();
+    }
 
-
-
-
-
-
+    private void showRequest() {
 
         TitleTextView.setText(title);
-        NicknameTextView.setText(nickname);
-        CellphoneTextView.setText(cellphone);
+        NicknameTextView.setText(nickname_requester);
+        CellphoneTextView.setText(cellphone_requester);
         ContentTextView.setText(content);
-
     }
 
-    private void getDataFromServer() {
-
-        // TODO
-
-    }
 
     private void processControllers() {
 
@@ -81,14 +84,20 @@ public class Request extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // checkIfNotAccepted() : to showAlert if accepted
-                if (checkIfNotAccepted()) {
+                getEditText();
 
-                    Intent i = new Intent(Request.this,Reply.class);
+                // checkIfFilled() : to showAlert if no information or accepted
+                if (checkIfNotAccepted() && checkIfFilled() ) {
+
+                    // TODO: send data to server
+                    // tell this request was accepted (by ID?)
+                    // send replier information
+                    sendDataToServer();
+
+                    Intent i = new Intent(Request.this, MainListActivity.class);
                     startActivity(i);
+
                 }
-
-
             }
         };
         AcceptButton.setOnClickListener(AcceptListener);
@@ -104,9 +113,25 @@ public class Request extends AppCompatActivity {
         BackButton.setOnClickListener(BackListener);
     }
 
+    private void getEditText() {
+        nickname_replier = nicknameEditText.getText().toString();
+        cellphone_replier = cellphoneEditText.getText().toString();
+    }
+
+    private boolean checkIfFilled() {
+
+        if(nickname_replier.matches(""))
+            showAlert(R.string.warning,R.string.no_nickname);
+        else if(cellphone_replier.matches(""))
+            showAlert(R.string.warning,R.string.no_cellphone);
+        else
+            return true;
+        return false;
+    }
+
     private boolean checkIfNotAccepted() {
 
-        // TODO : check from server (maybe from ID)
+        // TODO : check from server (maybe from all information)
         // if accepted
         //      showAlert(R.string.warning,R.string.accepted);
         //      return false;
@@ -127,5 +152,11 @@ public class Request extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    private void sendDataToServer() {
+
+        // TODO
+
     }
 }

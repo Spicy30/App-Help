@@ -17,8 +17,8 @@ public class Reply extends AppCompatActivity {
     private EditText nicknameEditText;
     private EditText cellphoneEditText;
 
-    String nickname;
-    String cellphone;
+    private String nickname;
+    private String cellphone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +54,8 @@ public class Reply extends AppCompatActivity {
                     // send replier information
                     sendDataToServer();
 
-                    // TODO: get requestID from server
-                    getIDFromServer();
+                    Intent i = new Intent(Reply.this, MainListActivity.class);
+                    startActivity(i);
 
                 }
 
@@ -122,39 +122,6 @@ public class Reply extends AppCompatActivity {
     }
 
 
-
-
-
-    // the following no need to do
-
-
-    private void getIDFromServer() {
-
-        // TODO
-
-        // temp
-        int id = 12345;
-
-
-
-
-        showRequestID(id, R.string.your_id);
-    }
-
-    private void showRequestID(int RequestID, int messageId){
-        new AlertDialog.Builder(Reply.this)
-                .setTitle(String.valueOf(RequestID))
-                .setMessage(messageId)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Intent i = new Intent(Reply.this, MainListActivity.class);
-                        startActivity(i);
-                    }
-                })
-                .show();
-    }
 
 
 }

@@ -36,6 +36,11 @@ public class MainListActivity extends AppCompatActivity {
 
     private String ServerIP = "10.103.249.218";
 
+    private String title;
+    private String nickname;
+    private String cellphone;
+    private String content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,14 +172,25 @@ public class MainListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                // TODO : get request from list
 
-                Bundle extras = new Bundle();
+                // temp
+                title = "幫買飲料 茶本味";
+                nickname = "Kochun";
+                cellphone = "0910192689";
+                content = "翠玉凍檸*1\n" +
+                        "小芋圓奶茶*1";
 
 
-                // extras.putString("ID", String.valueOf());
+                Bundle extras_request = new Bundle();
+
+                extras_request.putString("Title",title);
+                extras_request.putString("Nickname",nickname);
+                extras_request.putString("Cellphone",cellphone);
+                extras_request.putString("Content",content);
 
                 Intent i = new Intent(MainListActivity.this,Request.class);
-                i.putExtras(extras);
+                i.putExtras(extras_request);
                 startActivity(i);
 
 

@@ -25,16 +25,18 @@ public class Search extends AppCompatActivity {
     private TextView NicknameReplierTextView;
     private TextView CellphoneReplierTextView;
 
-    String title;
-    String nickname_requester;
-    String cellphone_requester;
-    String content;
-    String nickname_replier;
-    String cellphone_replier;
+    private String title;
+    private String nickname_requester;
+    private String cellphone_requester;
+    private String content;
+    private String nickname_replier;
+    private String cellphone_replier;
 
 
-    String nickname_for_search;
-    String cellphone_for_search;
+    private String nickname_for_search;
+    private String cellphone_for_search;
+
+    private static final int DIALOG_SEARCH=1;
 
 
 
@@ -61,7 +63,7 @@ public class Search extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                showDialog(1);
+                showDialog(DIALOG_SEARCH);
                 return true;
             case R.id.action_home:
                 backToHome();
@@ -79,7 +81,7 @@ public class Search extends AppCompatActivity {
         AlertDialog dialogDetails = null;
 
         switch (id) {
-            case 1:
+            case DIALOG_SEARCH:
                 LayoutInflater inflater = LayoutInflater.from(this);
                 View dialogview = inflater.inflate(R.layout.dialog_search, null);
                 AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(Search.this);
