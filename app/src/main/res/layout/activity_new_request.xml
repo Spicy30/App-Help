@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,14 +8,37 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="top"
-    tools:context="com.example.simon.help.NewRequest">
+    tools:context="com.example.simon.help.NewRequest"
+    android:background="@drawable/bg2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="top"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="HelpBuyFood"
+            android:id="@+id/newtitle"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_alignParentTop="true"
+            android:textSize="30dp"
+            android:textColor="#ffea00" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:gravity="center">
+
 
         <TextView
             android:layout_width="match_parent"
@@ -25,39 +48,39 @@
             android:gravity="center"/>
 
 
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:weightSum="1">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="145dp"
                 android:layout_height="match_parent"
                 android:textSize="30sp"
                 android:text="Title"
                 android:id="@+id/title"
-                android:layout_weight="0.4"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:layout_marginTop="0dp" />
 
             <EditText
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="30sp"
                 android:id="@+id/title_content"
                 android:layout_weight="0.6"
                 android:gravity="center"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:weightSum="1">
 
             <TextView
@@ -82,8 +105,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="5dp"
             android:weightSum="1">
 
             <TextView
@@ -107,9 +130,9 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="0dp"
             android:weightSum="1">
 
             <TextView
@@ -119,12 +142,13 @@
                 android:text="Content"
                 android:id="@+id/content"
                 android:layout_weight="0.4"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:layout_marginTop="5dp" />
 
             <EditText
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:layout_height="100dp"
+                android:textSize="20sp"
                 android:id="@+id/content_content"
                 android:layout_weight="0.6"
                 android:gravity="center"/>
@@ -159,4 +183,8 @@
 
     </LinearLayout>
 
-</LinearLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"></FrameLayout>
+
+</FrameLayout>

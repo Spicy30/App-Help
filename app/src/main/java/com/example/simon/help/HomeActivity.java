@@ -33,6 +33,11 @@ public class HomeActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ViewGroup group = (ViewGroup)findViewById(R.id.viewGroup);
+
+        Typeface Mias = Typeface.createFromAsset(getAssets(), "fonts/MiasScribblings.ttf");
+        TextView custom1 = (TextView)findViewById(R.id.hometitle);
+        custom1.setTypeface(Mias);
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         imgIdArray = new int[]{R.drawable.chicken, R.drawable.coffee, R.drawable.mai, R.drawable.dumpling};
