@@ -38,7 +38,7 @@ public class Search extends AppCompatActivity {
     private String nickname_for_search;
     private String cellphone_for_search;
 
-    private static final int DIALOG_SEARCH=1;
+    private static final int DIALOG_SEARCH=0;
     private JSONObject obj = new JSONObject();
     private String ServerIP = config.server_ip;
 
@@ -98,7 +98,7 @@ public class Search extends AppCompatActivity {
     @Override
     protected void onPrepareDialog(int id, Dialog dialog) {
         switch (id) {
-            case 1:
+            case DIALOG_SEARCH:
                 final AlertDialog searchDialog = (AlertDialog) dialog;
                 final Button OKButton = (Button) searchDialog.findViewById(R.id.ok);
                 final Button CancelButton = (Button) searchDialog.findViewById(R.id.cancel);
@@ -133,9 +133,9 @@ public class Search extends AppCompatActivity {
     }
 
 
-
     private void search() {
 
+        clearRequestView();
         getDataFromServer();  // via nickname_for_search , cellphone_for_search
         showRequest();
 
@@ -143,8 +143,7 @@ public class Search extends AppCompatActivity {
 
     private void backToHome() {
 
-        Intent i = new Intent(Search.this,HomeActivity.class);
-        startActivity(i);
+        finish();
     }
 
 
@@ -224,7 +223,6 @@ public class Search extends AppCompatActivity {
 
     private void showRequest() {
 
-
         TitleTextView.setText(title);
         NicknameRequesterTextView.setText(nickname_requester);
         CellphoneRequesterTextView.setText(cellphone_requester);
@@ -232,6 +230,15 @@ public class Search extends AppCompatActivity {
 
         NicknameReplierTextView.setText(nickname_replier);
         CellphoneReplierTextView.setText(cellphone_replier);
+    }
 
+    private void clearRequestView() {
+
+        title = "None";
+        nickname_requester = "None";
+        cellphone_requester = "None";
+        content = "None";
+        nickname_replier = "None";
+        cellphone_replier = "None";
     }
 }

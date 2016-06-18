@@ -67,8 +67,7 @@ public class NewRequest extends AppCompatActivity {
                     // send request information
                     sendDataToServer();
 
-                    Intent i = new Intent(NewRequest.this, MainListActivity.class);
-                    startActivity(i);
+                    finish();
                 }
 
 

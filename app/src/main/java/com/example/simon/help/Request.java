@@ -98,8 +98,8 @@ public class Request extends AppCompatActivity {
                         // send replier information
                         sendDataToServer();
 
-                        Intent i = new Intent(Request.this, MainListActivity.class);
-                        startActivity(i);
+
+                        finish();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

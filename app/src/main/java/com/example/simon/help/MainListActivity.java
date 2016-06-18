@@ -42,6 +42,9 @@ public class MainListActivity extends AppCompatActivity {
     private String cellphone;
     private String content;
 
+    private final static int ListToNewRequest=1;
+    private final static int ListToRequest=2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,7 @@ public class MainListActivity extends AppCompatActivity {
 
         Intent i = new Intent(MainListActivity.this,NewRequest.class);
         startActivity(i);
+
     }
 
     private void refresh() {
@@ -122,8 +126,7 @@ public class MainListActivity extends AppCompatActivity {
 
     private void backToHome() {
 
-        Intent i = new Intent(MainListActivity.this,HomeActivity.class);
-        startActivity(i);
+        finish();
     }
 
     private void getViews() {
@@ -181,10 +184,24 @@ public class MainListActivity extends AppCompatActivity {
                 startActivity(i);
 
 
+
             }
 
         };
         RequestListView.setOnItemClickListener(RequestListViewListener);
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+
+            refresh();
+
+        }
+    }
+
+
 }

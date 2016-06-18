@@ -35,4 +35,7 @@
     <string name="notice">Notice</string>
     <string name="successful">Successful</string>
 
+    //
+    <string name="none">none</string>
+
 </resources>
