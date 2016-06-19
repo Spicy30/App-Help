@@ -64,6 +64,10 @@ public class acceptThread extends  Thread {
                 }
                 obj.put("tf", "F");
             }
+            else if (climsg.equals("3")) // not found
+            {
+                obj.put("tf", "N");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

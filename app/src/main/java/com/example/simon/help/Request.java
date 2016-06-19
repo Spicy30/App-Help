@@ -97,9 +97,6 @@ public class Request extends AppCompatActivity {
                         // tell this request was accepted (by ID?)
                         // send replier information
                         sendDataToServer();
-
-
-                        finish();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -127,9 +124,9 @@ public class Request extends AppCompatActivity {
     private boolean checkIfFilled() {
 
         if(nickname_replier.matches(""))
-            showAlert(R.string.warning,R.string.no_nickname);
+            showAlert(R.string.warning,R.string.no_nickname, false);
         else if(cellphone_replier.matches(""))
-            showAlert(R.string.warning,R.string.no_cellphone);
+            showAlert(R.string.warning,R.string.no_cellphone, false);
         else
             return true;
         return false;
@@ -156,7 +153,7 @@ public class Request extends AppCompatActivity {
 
             if(climsg.equals("T"))
             {
-                showAlert(R.string.warning,R.string.accepted);
+                showAlert(R.string.warning,R.string.accepted, false);
                 return false;
             }
             else
@@ -168,17 +165,21 @@ public class Request extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        showAlert(R.string.warning,R.string.something_wrong);
+        showAlert(R.string.warning,R.string.something_wrong, false);
         return false;
     }
 
-    private void showAlert(int titleId, int messageId){
+    private void showAlert(int titleId, int messageId, final boolean finish){
         new AlertDialog.Builder(Request.this)
                 .setTitle(titleId)
                 .setMessage(messageId)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if(finish){
+                            setResult(RESULT_OK);
+                            finish();
+                        }
                     }
                 })
                 .show();
@@ -192,7 +193,7 @@ public class Request extends AppCompatActivity {
             artd.start();
             artd.join();
 
-            showAlert(R.string.notice, R.string.successful);
+            showAlert(R.string.notice, R.string.successful, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
