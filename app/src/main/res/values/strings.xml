@@ -37,5 +37,6 @@
 
     //
     <string name="none">none</string>
+    <string name="reply">Reply</string>
 
 </resources>
