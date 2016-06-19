@@ -74,8 +74,6 @@ public class NewRequest extends AppCompatActivity {
                     // TODO: send data to server
                     // send request information
                     sendDataToServer();
-
-                    finish();
                 }
 
 
@@ -115,13 +113,22 @@ public class NewRequest extends AppCompatActivity {
         return false;
     }
 
+    // for backward compatibility, accept only two parameters with "finish" set to false
     private void showAlert(int titleId, int messageId){
+        showAlert(titleId, messageId, false);
+    }
+
+    private void showAlert(int titleId, int messageId, final boolean finish){
         new AlertDialog.Builder(NewRequest.this)
                 .setTitle(titleId)
                 .setMessage(messageId)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if(finish){
+                            setResult(RESULT_OK);
+                            finish();
+                        }
                     }
                 })
                 .show();
@@ -133,7 +140,9 @@ public class NewRequest extends AppCompatActivity {
             JSONObject reqq = new singleReq(nickname, cellphone, content, title).toJSONObject();
             sendRequestThread std = new sendRequestThread(ServerIP, 3000, reqq);
             std.start();
-            std.join(300);
+            std.join();
+
+            showAlert(R.string.notice, R.string.successful, true);
         } catch (Exception e) {
             e.printStackTrace();
         }

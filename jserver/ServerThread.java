@@ -149,11 +149,11 @@ public class ServerThread extends Thread {
 					for(int i = 0; i < requests.length(); i++)
 					{
 						ob = (JSONObject)requests.get(i);
-						if(ob.get("cellphone").equals(cellphone)
-				        	&& ob.get("nickname").equals(nickname))
+						if(ob.get("cellphone").equals(cellphone) && ob.get("nickname").equals(nickname))
 						{
 							if(ob.get("accepted").equals("T"))
 								acp = true;
+
 							find = true;
 							break;
 						}
@@ -168,10 +168,15 @@ public class ServerThread extends Thread {
 						System.out.println("Accepted");
 						clientout.write("1\n");
 					}
-					else
+					else if(acp == false && find == true)
 					{
 						System.out.println("NOT Accepted");
 						clientout.write("2\n");
+					}
+					else
+					{
+						System.out.println("NOT Found");
+						clientout.write("3\n");
 					}
 
 					clientout.write(ob.toString());

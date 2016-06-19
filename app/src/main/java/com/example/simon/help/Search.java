@@ -206,7 +206,7 @@ public class Search extends AppCompatActivity {
                 nickname_replier = (String)obj.get("helpname");
                 cellphone_replier = (String)obj.get("helpcell");
             }
-            else
+            else if(climsg.equals("F"))
             {
                 // not accepted
                 title = (String)obj.get("title");
@@ -215,6 +215,12 @@ public class Search extends AppCompatActivity {
                 content = (String)obj.get("body");
                 nickname_replier = "None";
                 cellphone_replier = "None";
+            }
+            else if(climsg.equals("N"))
+            {
+                // not found, clear all fields
+                clearRequestView();
+                showAlert(R.string.notice, R.string.not_found);
             }
         } catch (Exception e) {
             e.printStackTrace();

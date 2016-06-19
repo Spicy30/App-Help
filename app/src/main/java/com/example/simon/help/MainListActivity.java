@@ -42,8 +42,10 @@ public class MainListActivity extends AppCompatActivity {
     private String cellphone;
     private String content;
 
-    private final static int ListToNewRequest=1;
-    private final static int ListToRequest=2;
+    private final static int ListToNewRequest = 1;
+    private final static int ListToRequest = 2;
+
+    private final static int RETCODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +94,7 @@ public class MainListActivity extends AppCompatActivity {
     private void addNewRequest() {
 
         Intent i = new Intent(MainListActivity.this,NewRequest.class);
-        startActivity(i);
+        startActivityForResult(i, RETCODE);
 
     }
 
@@ -181,9 +183,7 @@ public class MainListActivity extends AppCompatActivity {
 
                 Intent i = new Intent(MainListActivity.this,Request.class);
                 i.putExtras(extras_request);
-                startActivity(i);
-
-
+                startActivityForResult(i, RETCODE);
 
             }
 
@@ -197,9 +197,7 @@ public class MainListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
-
             refresh();
-
         }
     }
 
