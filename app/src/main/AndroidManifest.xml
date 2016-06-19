@@ -17,12 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity"/>
-        <activity android:name=".MainListActivity" />
+        <activity android:name=".HomeActivity" android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity android:name=".MainListActivity"/>
         <activity android:name=".Request" />
         <activity android:name=".Reply" />
-        <activity android:name=".NewRequest" />
-        <activity android:name=".Search"></activity>
+        <activity android:name=".NewRequest" android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity android:name=".Search" >></activity>
     </application>
 
 </manifest>
