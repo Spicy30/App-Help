@@ -40,7 +40,14 @@ public class ServerThread extends Thread {
 					System.out.println("Now got inside usermsg == 1");
 					// open for reading json string
 					fin = new BufferedReader(new FileReader("data"));
-					String data = fin.readLine();
+					String jsonstr = fin.readLine();
+					JSONArray arr = new JSONArray(jsonstr);
+					JSONArray retarr = new JSONArray();
+					for(Object req: arr){
+						if(((JSONObject)req).get("accepted").equals("F"))
+							retarr.put(req);
+					}
+					String data = retarr.toString();
 					clientout.write(data);
 					clientout.newLine();
 					clientout.flush();
