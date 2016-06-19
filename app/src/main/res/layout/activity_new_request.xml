@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="145dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Title"
                 android:id="@+id/title"
                 android:gravity="center"
@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Nickname"
                 android:id="@+id/nickname"
                 android:layout_weight="0.4"
@@ -105,14 +105,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
             android:weightSum="1">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Cellphone"
                 android:id="@+id/cellphone"
                 android:layout_weight="0.4"
@@ -138,7 +138,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Content"
                 android:id="@+id/content"
                 android:layout_weight="0.4"

@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.simon.help.Search">
+    tools:context="com.example.simon.help.Search"
+    android:background="@drawable/bg5">
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,23 +16,26 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="383dp"
             android:layout_height="wrap_content"
             android:textSize="40sp"
             android:text="Request"
-            android:gravity="center"/>
-
-
+            android:gravity="center"
+            />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:weightSum="1">
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+                android:weightSum="1">
 
             <TextView
                 android:layout_width="0dp"
@@ -48,16 +52,16 @@
                 android:textSize="30sp"
                 android:id="@+id/title_content"
                 android:layout_weight="0.6"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="#E0E0E0" />
         </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:weightSum="1">
+            android:layout_height="60dp"
+                android:weightSum="1"
+                android:background="#E0E0E0">
 
             <TextView
                 android:layout_width="0dp"
@@ -73,16 +77,15 @@
                 android:textSize="30sp"
                 android:id="@+id/nickname_requester"
                 android:layout_weight="0.6"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="#FFFFFF" />
         </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:weightSum="1">
+            android:layout_height="60dp"
+                android:weightSum="1">
 
             <TextView
                 android:layout_width="0dp"
@@ -98,16 +101,17 @@
                 android:textSize="30sp"
                 android:id="@+id/cellphone_requester"
                 android:layout_weight="0.6"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="#E0E0E0" />
         </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:weightSum="1">
+            android:layout_height="120dp"
+            android:layout_marginBottom="0dp"
+                android:weightSum="1"
+                android:background="#E0E0E0">
 
             <TextView
                 android:layout_width="0dp"
@@ -124,26 +128,34 @@
                 android:textSize="30sp"
                 android:id="@+id/content_content"
                 android:layout_weight="0.6"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="#FFFFFF" />
 
+        </LinearLayout>
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="385dp"
             android:layout_height="wrap_content"
             android:textSize="40sp"
-            android:text="Reply"
-            android:gravity="center"/>
-
-
+            android:text="reply"
+            android:gravity="center" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:weightSum="1">
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+
+
+
+
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+                android:weightSum="1">
 
             <TextView
                 android:layout_width="0dp"
@@ -159,16 +171,16 @@
                 android:textSize="30sp"
                 android:id="@+id/nickname_replier"
                 android:layout_weight="0.6"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="#E0E0E0" />
         </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:weightSum="1">
+            android:layout_height="60dp"
+                android:weightSum="1"
+                android:background="#E0E0E0">
 
             <TextView
                 android:layout_width="0dp"
@@ -184,15 +196,11 @@
                 android:textSize="30sp"
                 android:id="@+id/cellphone_replier"
                 android:layout_weight="0.6"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="#FFFFFF" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="    "
-            android:gravity="center"/>
+        </LinearLayout>
 
 
     </LinearLayout>
