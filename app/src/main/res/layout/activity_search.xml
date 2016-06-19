@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Title"
                 android:id="@+id/title"
                 android:layout_weight="0.4"
@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:id="@+id/title_content"
                 android:layout_weight="0.6"
                 android:gravity="center"
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Nickname"
                 android:layout_weight="0.4"
                 android:gravity="center"/>
@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:id="@+id/nickname_requester"
                 android:layout_weight="0.6"
                 android:gravity="center"
@@ -90,7 +90,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Cellphone"
                 android:layout_weight="0.4"
                 android:gravity="center"/>
@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:id="@+id/cellphone_requester"
                 android:layout_weight="0.6"
                 android:gravity="center"
@@ -116,7 +116,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Content"
                 android:id="@+id/content"
                 android:layout_weight="0.4"
@@ -125,7 +125,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:id="@+id/content_content"
                 android:layout_weight="0.6"
                 android:gravity="center"
@@ -160,7 +160,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Nickname"
                 android:layout_weight="0.4"
                 android:gravity="center"/>
@@ -168,7 +168,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:id="@+id/nickname_replier"
                 android:layout_weight="0.6"
                 android:gravity="center"
@@ -185,7 +185,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:text="Cellphone"
                 android:layout_weight="0.4"
                 android:gravity="center"/>
@@ -193,7 +193,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:id="@+id/cellphone_replier"
                 android:layout_weight="0.6"
                 android:gravity="center"
